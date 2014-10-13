@@ -90,13 +90,14 @@ namespace experimental{
 
 // BEGIN workaround for missing is_trivially_destructible
 # if defined TR2_OPTIONAL_GCC_4_8_AND_HIGHER___
-  // leave it: it is already there
-# elif defined __clang_major__ == 3 && __clang_minor__ == 4
-  // leave it: it is already there
+    // leave it: it is already there
+# elif defined __clang_major__ == 3 && __clang_minor__ < 5
+//    template <typename T>
+//  using is_trivially_destructible = std::has_trivial_destructor<T>;
 # elif defined TR2_OPTIONAL_CLANG_3_4_2_AND_HIGHER_
-  // leave it: it is already there
+    // leave it: it is already there
 # elif defined TR2_OPTIONAL_DISABLE_EMULATION_OF_TYPE_TRAITS
-  // leave it: the user doesn't want it
+    // leave it: the user doesn't want it
 # else
 	template <typename T>
 	using std::has_trivial_destructor<T> = is_trivially_destructible;
